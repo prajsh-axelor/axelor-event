@@ -5,8 +5,10 @@
 
 	<menuitem title="menu-event" name="Event" action="menu.event.action.all"/>
 	<action-view name="menu.event.action.all" model="com.axelor.apps.event.db.Event" title="Event">
+		<view type="cards" name="event-cards"/>
 		<view type="grid" name="event-grid"/>
 		<view type="form" name="event-form"/>
+		<view type="calendar" name="event-calendar"/>
 	</action-view>
 	
 	<menuitem title="menu-event-registration" name="Event Registration" action="menu.event.registration.action.all"/>
@@ -19,6 +21,12 @@
 	<action-view name="menu.address.action.all" model="com.axelor.apps.event.db.Address" title="Address">
 		<view type="grid" name="address-grid"/>
 		<view type="form" name="address-form"/>
+	</action-view>	
+	
+	<menuitem title="menu-discount" name="Discount" action="menu.discount.action.all"/>
+	<action-view name="menu.discount.action.all" model="com.axelor.apps.event.db.Discount" title="Discount">
+		<view type="grid" name="discount-grid"/>
+		<view type="form" name="discount-form"/>
 	</action-view>	
 		
 </object-views>

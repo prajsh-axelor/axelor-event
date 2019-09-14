@@ -11,10 +11,18 @@
 
 		<form name="discount-form" title="Discount" model="com.axelor.apps.event.db.Discount">
 				<panel name="mainPanel">
-					<field name="beforeDays" />
-					<field name="discountPercent" />
+					<field name="beforeDays" onChange="action-event-method-validate-before-date"/>
+					<field name="discountPercent" onChange="action-event-method-calculate-discount-amount"/>
 					<field name="discountAmount" />
 				</panel>
 		</form>
+		
+		<action-method name="action-event-method-validate-before-date">
+			<call class="com.axelor.apps.event.web.DiscountController" method="validateBeforeDays"/>
+		</action-method>
+		
+		<action-method name="action-event-method-calculate-discount-amount">
+			<call class="com.axelor.apps.event.web.DiscountController" method="calculateDiscountAmount"/>
+		</action-method>
 		
 </object-views>

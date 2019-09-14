@@ -3,7 +3,7 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
-	<grid model="com.axelor.apps.event.db.EventRegistration" title="Event Registrations" name="event-registration-grid">
+	<grid model="com.axelor.apps.event.db.EventRegistration" title="Event Registrations" name="action-event-validate-capacity-reg-date">
 		<field name="event"/>
 		<field name="name"/>
 		<field name="email"/>
@@ -12,16 +12,26 @@
 		<field name="amount"/>
 	</grid>
 	
-	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form">
+	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form" onSave="action-event-validate-capacity-reg-date">
 		<panel>
-			<field name="event"/>
+			<field name="event" canView="false"/>
 			<field name="name"/>
-			<field name="email"/>
+			<field name="email" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
 			<field name="address"/>
-			<field name="registrationDateT"/>
+			<field name="registrationDateT" onChange="action-event-validate-capacity-reg-date,action-event-method-calculate-amount"/>
 			<field name="amount"/>
 		</panel>
 	</form>
+	
+	<action-method name="action-event-method-calculate-amount" >
+		<call class="com.axelor.apps.event.web.EventRegistrationController" method="calculateAmount" />
+	</action-method>
+	
+	<action-validate name="action-event-validate-capacity-reg-date">
+		<error message="eval:com.axelor.i18n.I18n.get('Sorry!! this event is full.')" if="event.getTotalEntry() &gt;= event.getCapacity()"/>
+        <error message="eval:com.axelor.i18n.I18n.get('Sorry!! registration for this event have been closed.')" if="registrationDateT.toLocalDate() &gt; event.getRegistrationCloseDate()"/>
+        <error message="eval:com.axelor.i18n.I18n.get('Sorry!! registration for this event is not yet started.')"  if="registrationDateT.toLocalDate() &lt; event.getRegistrationOpenDate()"/>
+    </action-validate>
 		
 		
 </object-views>

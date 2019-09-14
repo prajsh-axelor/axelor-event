@@ -15,24 +15,60 @@
 		<field name="totalDiscount" />
 	</grid>
 	
-	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form">
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onLoad="action-event-method-count-details">
 		<panel name="mainPanel">
 			<field name="reference" />
-			<field name="startDateT" />
-			<field name="endDateT" />
+			<field name="startDateT" onChange="action-event-validate-check-event-start-end-dates"/>
+			<field name="endDateT" onChange="action-event-validate-check-event-start-end-dates"/>
 			<field name="address" />
-			<field name="registrationOpenDate" />
-			<field name="registrationCloseDate" />
+			<field name="registrationOpenDate" onChange="action-event-validate-check-registration-start-end-dates"/>
+			<field name="registrationCloseDate" onChange="action-event-validate-check-registration-start-end-dates"/>
 			<field name="capacity" />
 			<field name="eventFee" />
 			<field name="description" widget="html"/>
 			<field name="discountList"/>
-			<field name="eventRegistrationList"/>
+			<field name="eventRegistrationList" onChange="action-event-method-count-details"/>
 			<field name="totalEntry" />
 			<field name="amountCollected" />
 			<field name="totalDiscount" />
 		</panel>
 	</form>
+	
+	<cards name="event-cards" model="com.axelor.apps.event.db.Event" title="Events">
+				<field name="reference" />
+			<field name="startDateT" />
+			<field name="endDateT" />
+			<field name="address" />
+			<field name="capacity" />
+			<field name="eventFee" />
+			<field name="totalEntry" />
+			<field name="amountCollected" />
+			<field name="totalDiscount" />
+				<template><![CDATA[
+			<div class="span8">
+      			Reference: {{reference}}<br>
+      			Start Date: {{startDateT}}<br>
+      			End Date: {{endDateT}}<br>
+      			Capacity : {{capacity}}<br>
+      			Event Fee: {{eventFee}}<br>
+      		</div>
+		]]></template>
+		</cards>
 		
+		<calendar name="event-calendar"  title="Events"  model="com.axelor.apps.event.db.Event"  eventStart="startDateT"  eventStop="endDateT" >
+  			<field name="reference" />
+		</calendar>
+		
+	<action-validate name="action-event-validate-check-event-start-end-dates">
+        <error message="Enter proper 'Start' and 'End' date." if="startDateT != null &amp;&amp; endDateT != null &amp;&amp; startDateT &gt; endDateT"/>
+    </action-validate>
+		
+	<action-validate name="action-event-validate-check-registration-start-end-dates">
+        <error message="Enter proper 'Start' and 'End' date." if="registrationOpenDate != null &amp;&amp; registrationCloseDate != null &amp;&amp; registrationOpenDate &gt; registrationCloseDate &amp;&amp; registrationCloseDate &gt; startDateT"/>
+    </action-validate>
+	
+	<action-method name="action-event-method-count-details">
+		<call class="com.axelor.apps.event.web.EventController" method="countDetails"/>
+	</action-method>
 		
 </object-views>
