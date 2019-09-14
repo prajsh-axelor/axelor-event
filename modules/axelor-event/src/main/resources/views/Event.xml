@@ -17,7 +17,7 @@
 	
 	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onLoad="action-event-method-count-details">
 	<toolbar>
-		<button name="btnImportRegistration" title="Import Registration" onClick="action-event-view-import-event-registration-popup" readonlyIf="id != null"/>
+		<button name="btnImportRegistration" title="Import Registration" onClick="action-event-view-import-event-registration-popup" readonlyIf="id == null"/>
 		<button name="btnShowReport" title="Show Report" onClick="action-event-report-generation" showIf="id != null"/>
 	</toolbar>
 		<panel name="mainPanel">

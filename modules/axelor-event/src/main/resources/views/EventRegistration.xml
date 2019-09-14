@@ -18,19 +18,19 @@
 			<field name="name"/>
 			<field name="email" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
 			<field name="address"/>
-			<field name="registrationDateT" onChange="action-event-validate-capacity-reg-date,action-event-method-calculate-amount"/>
+			<field name="registrationDateT" onChange="action-event-method-calculate-amount"/>
 			<field name="amount"/>
 		</panel>
 	</form>
 	
-	<form name="wizard-import-event-reg-form" title="Import Registration" model="com.axelor.apps.event.db.EventRegistration" >
+	<form name="wizard-import-event-reg-form" title="Import Registration" model="com.axelor.meta.db.MetaFile">
     	<panel name="wizardPanel">
 			<field name="metaFile" title="Input file" type="many-to-one" target="com.axelor.meta.db.MetaFile" widget="binary-link"/>
 			<button name="importBtn" colSpan="4" title="Import" readonlyIf="metaFile == null" onClick="action-base-method-import-event-registration"/>
     	</panel>
     </form>
     
-    <action-view name="action-event-view-import-event-registration-popup" title="Import Event Registration" model="com.axelor.apps.event.db.EventRegistration">
+    <action-view name="action-event-view-import-event-registration-popup" title="Import Event Registration" model="com.axelor.meta.db.MetaFile">
     	<view type="form" name="wizard-import-event-reg-form"/>
     	<view-param name="show-toolbar" value="false"/>
   		<view-param name="width" value="800"/>
