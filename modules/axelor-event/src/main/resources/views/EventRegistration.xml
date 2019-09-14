@@ -18,7 +18,7 @@
 			<field name="name"/>
 			<field name="email" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
 			<field name="address"/>
-			<field name="registrationDateT" onChange="action-event-method-calculate-amount"/>
+			<field name="registrationDateT" onChange="action-event-validate-capacity-reg-date,action-event-method-calculate-amount"/>
 			<field name="amount"/>
 		</panel>
 	</form>

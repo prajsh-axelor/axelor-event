@@ -28,6 +28,7 @@ public class ImportEventRegistrationController {
 	    	
 	    }
 	    System.out.println("welcome here");
+	    response.setFlash("Event Registration imported");
 
 	   
 	  }
