@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+	<menuitem title="menu-event" name="Event" action="menu.event.action.all"/>
+	<action-view name="menu.event.action.all" model="com.axelor.apps.event.db.Event" title="Event">
+		<view type="grid" name="event-grid"/>
+		<view type="form" name="event-form"/>
+	</action-view>
+	
+	<menuitem title="menu-event-registration" name="Event Registration" action="menu.event.registration.action.all"/>
+	<action-view name="menu.event.registration.action.all" model="com.axelor.apps.event.db.EventRegistration" title="Event Registration">
+		<view type="grid" name="event-registration-grid"/>
+		<view type="form" name="event-registration-form"/>
+	</action-view>
+	
+	<menuitem title="menu-address" name="Address" action="menu.address.action.all"/>
+	<action-view name="menu.address.action.all" model="com.axelor.apps.event.db.Address" title="Address">
+		<view type="grid" name="address-grid"/>
+		<view type="form" name="address-form"/>
+	</action-view>	
+		
+</object-views>

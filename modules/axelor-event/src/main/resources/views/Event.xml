@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+	
+	<grid model="com.axelor.apps.event.db.Event" title="Events" name="event-grid">
+		<field name="reference" />
+		<field name="startDateT" />
+		<field name="endDateT" />
+		<field name="address" />
+		<field name="capacity" />
+		<field name="eventFee" />
+		<field name="totalEntry" />
+		<field name="amountCollected" />
+		<field name="totalDiscount" />
+	</grid>
+	
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form">
+		<panel name="mainPanel">
+			<field name="reference" />
+			<field name="startDateT" />
+			<field name="endDateT" />
+			<field name="address" />
+			<field name="registrationOpenDate" />
+			<field name="registrationCloseDate" />
+			<field name="capacity" />
+			<field name="eventFee" />
+			<field name="description" widget="html"/>
+			<field name="discountList"/>
+			<field name="eventRegistrationList"/>
+			<field name="totalEntry" />
+			<field name="amountCollected" />
+			<field name="totalDiscount" />
+		</panel>
+	</form>
+		
+		
+</object-views>
