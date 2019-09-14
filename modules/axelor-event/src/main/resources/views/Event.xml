@@ -16,6 +16,10 @@
 	</grid>
 	
 	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onLoad="action-event-method-count-details">
+	<toolbar>
+		<button name="btnImportRegistration" title="Import Registration" onClick="action-event-view-import-event-registration-popup" readonlyIf="id != null"/>
+		<button name="btnShowReport" title="Show Report" onClick="action-event-report-generation" showIf="id != null"/>
+	</toolbar>
 		<panel name="mainPanel">
 			<field name="reference" />
 			<field name="startDateT" onChange="action-event-validate-check-event-start-end-dates"/>
@@ -70,5 +74,9 @@
 	<action-method name="action-event-method-count-details">
 		<call class="com.axelor.apps.event.web.EventController" method="countDetails"/>
 	</action-method>
+	
+	<action-report name="action-event-report-generation" output="Event-Report" design="Event.rptdesign">
+		<param name="id" expr="eval:id" />
+	</action-report>
 		
 </object-views>

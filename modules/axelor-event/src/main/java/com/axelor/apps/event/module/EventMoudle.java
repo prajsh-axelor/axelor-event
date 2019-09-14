@@ -7,6 +7,8 @@ import com.axelor.apps.event.service.EventRegistrationService;
 import com.axelor.apps.event.service.EventRegistrationServiceImpl;
 import com.axelor.apps.event.service.EventService;
 import com.axelor.apps.event.service.EventServiceImpl;
+import com.axelor.apps.event.service.ImportEventRegistrationService;
+import com.axelor.apps.event.service.ImportEventRegistrationServiceImpl;
 
 public class EventMoudle extends AxelorModule{
 
@@ -16,6 +18,7 @@ public class EventMoudle extends AxelorModule{
 		bind(DiscountService.class).to(DiscountServiceImpl.class);
 		bind(EventRegistrationService .class).to(EventRegistrationServiceImpl.class);
 		bind(EventService.class).to(EventServiceImpl.class);
+		bind(ImportEventRegistrationService.class).to(ImportEventRegistrationServiceImpl.class);
 	}
 
 }

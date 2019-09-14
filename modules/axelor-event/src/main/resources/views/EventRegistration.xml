@@ -23,6 +23,28 @@
 		</panel>
 	</form>
 	
+	<form name="wizard-import-event-reg-form" title="Import Registration" model="com.axelor.apps.event.db.EventRegistration" >
+    	<panel name="wizardPanel">
+			<field name="metaFile" title="Input file" type="many-to-one" target="com.axelor.meta.db.MetaFile" widget="binary-link"/>
+			<button name="importBtn" colSpan="4" title="Import" readonlyIf="metaFile == null" onClick="action-base-method-import-event-registration"/>
+    	</panel>
+    </form>
+    
+    <action-view name="action-event-view-import-event-registration-popup" title="Import Event Registration" model="com.axelor.apps.event.db.EventRegistration">
+    	<view type="form" name="wizard-import-event-reg-form"/>
+    	<view-param name="show-toolbar" value="false"/>
+  		<view-param name="width" value="800"/>
+    	<view-param name="popup" value="true"/>
+    	<view-param name="show-confirm" value="false"/>
+  		<view-param name="popup-save" value="false"/>
+  		<view-param name="popup" value="reload"/>
+  		<context name="_event_id" expr="eval:id" />
+    </action-view>
+	
+	<action-method name="action-base-method-import-event-registration">
+    	<call class="com.axelor.apps.event.web.ImportEventRegistrationController" method="importEventRegistration"/>
+    </action-method>
+	
 	<action-method name="action-event-method-calculate-amount" >
 		<call class="com.axelor.apps.event.web.EventRegistrationController" method="calculateAmount" />
 	</action-method>

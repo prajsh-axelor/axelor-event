@@ -14,6 +14,8 @@ public class DiscountController {
 	DiscountService discountService;
 	
 	 public void validateBeforeDays(ActionRequest request, ActionResponse response) {
+		 
+		 System.err.println(request.getContext().entrySet());
 		 Discount discount= request.getContext().asType(Discount.class);
 		 
 		 if(request.getContext().getParent() != null) {

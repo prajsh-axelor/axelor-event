@@ -19,7 +19,7 @@
 			<string name="description" title="Description" />
 			
 			<one-to-many name="discountList" ref="com.axelor.apps.event.db.Discount" title="Discount"/>
-			<one-to-many name="eventRegistrationList" ref="com.axelor.apps.event.db.EventRegistration" title="Event Registration"/>
+			<one-to-many name="eventRegistrationList" ref="com.axelor.apps.event.db.EventRegistration" title="Event Registration" mappedBy="event"/>
 			
 			<integer name="totalEntry" title="Total Entry" readonly="true" />
 			<decimal name="amountCollected" title="Amount Collected" readonly="true" />
