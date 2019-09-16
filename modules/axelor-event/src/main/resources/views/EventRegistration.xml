@@ -10,6 +10,7 @@
 		<field name="address"/>
 		<field name="registrationDateT"/>
 		<field name="amount"/>
+		<field name="isEmailSent" />
 	</grid>
 	
 	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form" onSave="action-event-registration-group-check-capacity-reg-date">
@@ -20,6 +21,7 @@
 			<field name="address"/>
 			<field name="registrationDateT" onChange="action-event-registration-group-on-registration-date-change" readonlyIf="event==null &amp;&amp; !$popup()"/>
 			<field name="amount"/>
+			<field name="isEmailSent" readonly="true" />
 		</panel>
 	</form>
 	

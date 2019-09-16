@@ -10,15 +10,15 @@ import com.axelor.apps.event.service.EventServiceImpl;
 import com.axelor.apps.event.service.ImportEventRegistrationService;
 import com.axelor.apps.event.service.ImportEventRegistrationServiceImpl;
 
-public class EventMoudle extends AxelorModule{
+public class EventMoudle extends AxelorModule {
 
 	@Override
 	protected void configure() {
 		// TODO Auto-generated method stub
 		bind(DiscountService.class).to(DiscountServiceImpl.class);
-		bind(EventRegistrationService .class).to(EventRegistrationServiceImpl.class);
+		bind(EventRegistrationService.class).to(EventRegistrationServiceImpl.class);
 		bind(EventService.class).to(EventServiceImpl.class);
 		bind(ImportEventRegistrationService.class).to(ImportEventRegistrationServiceImpl.class);
 	}
-
+	
 }

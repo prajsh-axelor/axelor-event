@@ -18,7 +18,8 @@
 	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onLoad="action-event-method-count-details" onSave="action-event-validate-check-capacity,action-event-validate-check-event-start-end-dates,action-event-validate-check-registration-start-end-dates">
 	<toolbar>
 		<button name="btnImportRegistration" title="Import Registration" onClick="action-event-view-import-event-registration-popup" readonlyIf="id == null"/>
-		<button name="btnShowReport" title="Show Report" onClick="action-event-report-generation" showIf="id != null"/>
+		<button name="btnPrintReport" title="Print Report" onClick="action-event-report-generation" showIf="id != null"/>
+		<button name="btnSendEmail" title="Send email"  onClick="action-event-method-send-email,save"/>
 	</toolbar>
 		<panel name="mainPanel">
 			<field name="reference" />
@@ -64,6 +65,10 @@
 		<calendar name="event-calendar"  title="Events"  model="com.axelor.apps.event.db.Event"  eventStart="startDateT"  eventStop="endDateT" >
   			<field name="reference" />
 		</calendar>
+		
+		<action-method name="action-event-method-send-email">
+			<call class="com.axelor.apps.event.web.EmailMessageController" method="sendEmail"/>
+		</action-method>
 		
 	<action-validate name="action-event-validate-check-capacity">
 		<error message="Capacity full for this event. Remove some registration or increase capacity to continue." if="totalEntry &gt; capacity"/>

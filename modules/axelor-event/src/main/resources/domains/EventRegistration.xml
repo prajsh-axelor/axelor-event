@@ -12,5 +12,6 @@
 			<many-to-one name="address" ref="com.axelor.apps.event.db.Address" title="Address" />
 			<datetime name="registrationDateT" title="Registration Date" />
 			<decimal name="amount" title="Amount" readonly="true" />
+			<boolean name="isEmailSent" />
 		</entity>
 </domain-models>
