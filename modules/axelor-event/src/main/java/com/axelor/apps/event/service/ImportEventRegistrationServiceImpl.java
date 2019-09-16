@@ -1,73 +1,88 @@
 package com.axelor.apps.event.service;
 
 import java.io.File;
-import java.io.FileReader;
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.axelor.apps.event.db.Event;
-import com.axelor.apps.event.db.EventRegistration;
-import com.axelor.apps.event.db.repo.EventRegistrationRepository;
-import com.axelor.apps.event.db.repo.EventRepository;
-import com.axelor.inject.Beans;
+import org.apache.commons.io.IOUtils;
+
+import com.axelor.data.Importer;
+import com.axelor.data.csv.CSVConfig;
+import com.axelor.data.csv.CSVImporter;
+import com.axelor.exception.AxelorException;
 import com.axelor.meta.MetaFiles;
 import com.axelor.meta.db.MetaFile;
 import com.google.common.io.Files;
-import com.google.inject.persist.Transactional;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
 
 public class ImportEventRegistrationServiceImpl implements ImportEventRegistrationService {
-
+	
   @Override
-  @Transactional
   public void importEventReg(Integer eventId, MetaFile dataFile) {
-    System.out.println(eventId + "	" + dataFile);
-
-    File dataCsvFile = this.getDataCsvFile(dataFile);
-
-    Event event = Beans.get(EventRepository.class).find((long) eventId);
-    List<EventRegistration> eventRegistrationsList = event.getEventRegistrationList();
-    EventRegistrationRepository eventRegistrationRepository =
-        Beans.get(EventRegistrationRepository.class);
-    try {
-
-      FileReader filereader = new FileReader(dataCsvFile);
-
-      // create csvReader object and skip first Line
-      CSVReader csvReader = new CSVReaderBuilder(filereader).withSkipLines(1).build();
-      //	        CSVImporter
-      List<String[]> allData = csvReader.readAll();
-
-      // print Data
-      for (String[] row : allData) {
-
-        EventRegistration eventRegistration = new EventRegistration();
-        eventRegistration.setName(row[0]);
-        eventRegistration.setEmail(row[1]);
-        eventRegistration.setEvent(event);
-        eventRegistrationsList.add(eventRegistration);
-        eventRegistrationRepository.save(eventRegistration);
-      }
-
-      Beans.get(EventRepository.class).save(event);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    System.out.println(event);
-    System.out.println("data csv file " + dataCsvFile);
+	  
+	File configXmlFile = this.getConfigXmlFile();
+	File dataCsvFile = this.getDataCsvFile(dataFile);
+	
+	Map<String, Object> importContext = new HashMap<String, Object>();
+    importContext.put("_eventId", eventId);
+    
+    importEventRegistration(configXmlFile, dataCsvFile, importContext);
+    
+        System.out.println("data csv file " + dataCsvFile);
+    System.out.println("config xml file " + configXmlFile);
+  }
+  
+  private void importEventRegistration( File configXmlFile,File dataCsvFile, Map<String, Object> importContext) {
+	  try {
+		  
+	      Importer importer = new CSVImporter(configXmlFile.getAbsolutePath(), "/home/axelor/.event-app/attachments/");
+	      
+	      
+//	      importer.addListener(new Listener());
+	      importer.setContext(importContext);
+	    	  importer.run();
+		  
+		  
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
   }
 
   private File getDataCsvFile(MetaFile dataFile) {
 
-    File csvFile = new File("/home/axelor/.event-app/attachments/", "tempfile.csv");
-    try {
-      if (dataFile != null) {
-        Files.copy(MetaFiles.getPath(dataFile).toFile(), csvFile);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return csvFile;
-  }
+	    File csvFile = new File("/home/axelor/.event-app/attachments/","tempfile.csv");
+	    try {
+	    	if(dataFile != null) {
+	    		Files.copy(MetaFiles.getPath(dataFile).toFile(), csvFile);
+	    	}
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+	    return csvFile;
+	  }
+  
+  private File getConfigXmlFile() {
+
+	    File configFile = null;
+	    try {
+	      configFile = File.createTempFile("event-input-config", ".xml");
+
+	      InputStream bindFileInputStream =
+	          this.getClass().getResourceAsStream("/demo/event-reg-config.xml");
+
+	      if (bindFileInputStream == null) {
+	        throw new AxelorException();
+	      }
+
+	      FileOutputStream outputStream = new FileOutputStream(configFile);
+
+	      IOUtils.copy(bindFileInputStream, outputStream);
+
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+	    return configFile;
+	  }
+  
 }
