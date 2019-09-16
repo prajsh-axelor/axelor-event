@@ -3,7 +3,7 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
-	<grid model="com.axelor.apps.event.db.EventRegistration" title="Event Registrations" name="action-event-validate-capacity-reg-date">
+	<grid model="com.axelor.apps.event.db.EventRegistration" title="Event Registrations" name="event-registration-grid">
 		<field name="event"/>
 		<field name="name"/>
 		<field name="email"/>

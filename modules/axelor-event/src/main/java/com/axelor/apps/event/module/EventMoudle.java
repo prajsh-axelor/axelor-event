@@ -12,13 +12,12 @@ import com.axelor.apps.event.service.ImportEventRegistrationServiceImpl;
 
 public class EventMoudle extends AxelorModule {
 
-	@Override
-	protected void configure() {
-		// TODO Auto-generated method stub
-		bind(DiscountService.class).to(DiscountServiceImpl.class);
-		bind(EventRegistrationService.class).to(EventRegistrationServiceImpl.class);
-		bind(EventService.class).to(EventServiceImpl.class);
-		bind(ImportEventRegistrationService.class).to(ImportEventRegistrationServiceImpl.class);
-	}
-	
+  @Override
+  protected void configure() {
+    // TODO Auto-generated method stub
+    bind(DiscountService.class).to(DiscountServiceImpl.class);
+    bind(EventRegistrationService.class).to(EventRegistrationServiceImpl.class);
+    bind(EventService.class).to(EventServiceImpl.class);
+    bind(ImportEventRegistrationService.class).to(ImportEventRegistrationServiceImpl.class);
+  }
 }

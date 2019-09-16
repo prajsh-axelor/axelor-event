@@ -11,26 +11,22 @@ import com.axelor.rpc.ActionResponse;
 import com.google.inject.Inject;
 
 public class ImportEventRegistrationController {
-	@Inject
-	ImportEventRegistrationService impEventRegSer;
-	public void importEventRegistration(ActionRequest request, ActionResponse response) {
+  @Inject ImportEventRegistrationService impEventRegSer;
 
-	    LinkedHashMap<String, Object> map =
-	        (LinkedHashMap<String, Object>) request.getContext().get("metaFile");
-	    MetaFile dataFile =
-	        Beans.get(MetaFileRepository.class).find(((Integer) map.get("id")).longValue());
-	    if(!dataFile.getFileType().equals("text/csv")) {
-	    	response.setError("upload a csv file");
-	    }else {
-	    	// a csv file is uploaded
-	    	Integer eventId = (Integer) request.getContext().get("_id");
-	    	impEventRegSer.importEventReg( eventId, dataFile );
-	    	
-	    }
-	    System.out.println("welcome here");
-	    response.setFlash("Event Registration imported");
+  public void importEventRegistration(ActionRequest request, ActionResponse response) {
 
-	   
-	  }
-
+    LinkedHashMap<String, Object> map =
+        (LinkedHashMap<String, Object>) request.getContext().get("metaFile");
+    MetaFile dataFile =
+        Beans.get(MetaFileRepository.class).find(((Integer) map.get("id")).longValue());
+    if (!dataFile.getFileType().equals("text/csv")) {
+      response.setError("upload a csv file");
+    } else {
+      // a csv file is uploaded
+      Integer eventId = (Integer) request.getContext().get("_id");
+      impEventRegSer.importEventReg(eventId, dataFile);
+    }
+    System.out.println("welcome here");
+    response.setFlash("Event Registration imported");
+  }
 }

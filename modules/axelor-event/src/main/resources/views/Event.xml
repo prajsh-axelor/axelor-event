@@ -15,11 +15,11 @@
 		<field name="totalDiscount" />
 	</grid>
 	
-	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onLoad="action-event-method-count-details" onSave="action-event-validate-check-capacity,action-event-validate-check-event-start-end-dates,action-event-validate-check-registration-start-end-dates">
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onLoad="action-event-method-count-details" onSave="action-event-group-on-save">
 	<toolbar>
 		<button name="btnImportRegistration" title="Import Registration" onClick="action-event-view-import-event-registration-popup" readonlyIf="id == null"/>
 		<button name="btnPrintReport" title="Print Report" onClick="action-event-report-generation" showIf="id != null"/>
-		<button name="btnSendEmail" title="Send email"  onClick="action-event-method-send-email,save"/>
+		<button name="btnSendEmail" title="Send email"  onClick="save,action-event-method-send-email"/>
 	</toolbar>
 		<panel name="mainPanel">
 			<field name="reference" />
@@ -65,6 +65,18 @@
 		<calendar name="event-calendar"  title="Events"  model="com.axelor.apps.event.db.Event"  eventStart="startDateT"  eventStop="endDateT" >
   			<field name="reference" />
 		</calendar>
+		
+		<action-group name="action-event-group-on-save">
+			<action name="action-event-validate-check-capacity"/>
+			<action name="action-event-validate-check-event-start-end-dates"/>
+			<action name="action-event-validate-check-registration-start-end-dates"/>
+			<action name="action-event-method-check-event-reg-list-date"/>
+		</action-group>
+		
+		<action-method name="action-event-method-check-event-reg-list-date">
+			<call class="com.axelor.apps.event.web.EventController" method="checkEventRegistrationListDate"/>
+		</action-method>
+		
 		
 		<action-method name="action-event-method-send-email">
 			<call class="com.axelor.apps.event.web.EmailMessageController" method="sendEmail"/>
