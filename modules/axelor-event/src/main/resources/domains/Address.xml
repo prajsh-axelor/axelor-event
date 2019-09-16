@@ -12,17 +12,18 @@
 			<string name="city" title="City" />
 			<string name="country" title="Country" />
 			<string name="fullAddress" namecolumn="true" readonly="true"><![CDATA[
-			if(flatHouseNo == null)
-				return street+", "+landMark+", "+city+", "+country;
-			if(street == null)
-				return flatHouseNo+": "+landMark+", "+city+", "+country;
-			if(landMark == null)
-				return flatHouseNo+": "+street+", "+city+", "+country;
-			if(city == null)
-				return flatHouseNo+": "+street+", "+landMark+", "+country;
-			if(country == null)
-				return flatHouseNo+": "+street+", "+landMark+", "+city; 
-			return flatHouseNo+": "+street+", "+landMark+", "+city+", "+country;
+				String fullAddress = "";
+				if(flatHouseNo != null)
+					fullAddress += flatHouseNo + ": ";
+				if(street != null)
+					fullAddress += street+", ";
+				if(landMark != null)
+					fullAddress += landMark+", ";
+				if(city != null)
+					fullAddress += city+", ";
+				if(country != null)
+					fullAddress += country;
+				return fullAddress;
     	]]></string>
 		</entity>
 </domain-models>
