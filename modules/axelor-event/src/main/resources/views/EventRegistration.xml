@@ -12,13 +12,13 @@
 		<field name="amount"/>
 	</grid>
 	
-	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form" onSave="action-event-validate-capacity-reg-date">
+	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form" onSave="action-event-registration-group-check-capacity-reg-date">
 		<panel>
-			<field name="event" canView="false"/>
+			<field name="event" hideIf="$popup()"/>
 			<field name="name"/>
 			<field name="email" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
 			<field name="address"/>
-			<field name="registrationDateT" onChange="action-event-validate-capacity-reg-date,action-event-method-calculate-amount"/>
+			<field name="registrationDateT" onChange="action-event-registration-group-on-registration-date-change" readonlyIf="event==null &amp;&amp; !$popup()"/>
 			<field name="amount"/>
 		</panel>
 	</form>
@@ -40,7 +40,24 @@
   		<view-param name="popup" value="reload"/>
   		<context name="_event_id" expr="eval:id" />
     </action-view>
-	
+    	
+    <action-group name="action-event-registration-group-on-registration-date-change">
+    	<action name="action-event-registration-method-set-parent-event" if="event==null" />
+    	<action name="action-event-registration-group-check-capacity-reg-date" if="event!=null" />
+    	<action name="action-event-method-calculate-amount" if="event!=null"/>
+    </action-group>
+    
+    <action-group name="action-event-registration-group-check-capacity-reg-date">
+    	<!-- validate date of registration -->
+    	<action name="action-event-validate-capacity-reg-date"/>
+    	<!-- validate capacity -->
+    	<action name="action-event-registration-validate-capacity"/>
+    </action-group>
+    	
+    <action-method name="action-event-registration-method-set-parent-event">
+    	<call class="com.axelor.apps.event.web.EventRegistrationController" method="setParentEvent"/>
+    </action-method>
+    	
 	<action-method name="action-base-method-import-event-registration">
     	<call class="com.axelor.apps.event.web.ImportEventRegistrationController" method="importEventRegistration"/>
     </action-method>
@@ -49,9 +66,12 @@
 		<call class="com.axelor.apps.event.web.EventRegistrationController" method="calculateAmount" />
 	</action-method>
 	
+	<action-validate name="action-event-registration-validate-capacity">
+		<error message="eval:com.axelor.i18n.I18n.get('Sorry!! this event is full.')" if="event.getTotalEntry() &gt;= event.getCapacity()"/>	
+	</action-validate>
+	
 	<action-validate name="action-event-validate-capacity-reg-date">
-		<error message="eval:com.axelor.i18n.I18n.get('Sorry!! this event is full.')" if="event.getTotalEntry() &gt;= event.getCapacity()"/>
-        <error message="eval:com.axelor.i18n.I18n.get('Sorry!! registration for this event have been closed.')" if="registrationDateT.toLocalDate() &gt; event.getRegistrationCloseDate()"/>
+        <error message="eval:com.axelor.i18n.I18n.get('Sorry!! registration for this event have been closed.')" if="registrationDateT.toLocalDate() &gt; event.getRegistrationCloseDate()" />
         <error message="eval:com.axelor.i18n.I18n.get('Sorry!! registration for this event is not yet started.')"  if="registrationDateT.toLocalDate() &lt; event.getRegistrationOpenDate()"/>
     </action-validate>
 		

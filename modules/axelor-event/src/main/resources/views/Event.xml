@@ -15,7 +15,7 @@
 		<field name="totalDiscount" />
 	</grid>
 	
-	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onLoad="action-event-method-count-details">
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onLoad="action-event-method-count-details" onSave="action-event-validate-check-capacity,action-event-validate-check-event-start-end-dates,action-event-validate-check-registration-start-end-dates">
 	<toolbar>
 		<button name="btnImportRegistration" title="Import Registration" onClick="action-event-view-import-event-registration-popup" readonlyIf="id == null"/>
 		<button name="btnShowReport" title="Show Report" onClick="action-event-report-generation" showIf="id != null"/>
@@ -31,7 +31,7 @@
 			<field name="eventFee" />
 			<field name="description" widget="html" colSpan="12"/>
 			<field name="discountList" colSpan="12" />
-			<field name="eventRegistrationList" colSpan="12" onChange="action-event-method-count-details"/>
+			<field name="eventRegistrationList" colSpan="12" onChange="action-event-method-count-details,action-event-validate-check-capacity"/>
 		</panel>
 		<panel sidebar="true">
 			<field name="totalEntry" />
@@ -65,12 +65,17 @@
   			<field name="reference" />
 		</calendar>
 		
+	<action-validate name="action-event-validate-check-capacity">
+		<error message="Capacity full for this event. Remove some registration or increase capacity to continue." if="totalEntry &gt; capacity"/>
+	</action-validate>
+		
 	<action-validate name="action-event-validate-check-event-start-end-dates">
         <error message="Enter proper 'Start' and 'End' date." if="startDateT != null &amp;&amp; endDateT != null &amp;&amp; startDateT &gt; endDateT"/>
     </action-validate>
 		
 	<action-validate name="action-event-validate-check-registration-start-end-dates">
-        <error message="Enter proper 'Start' and 'End' date." if="registrationOpenDate != null &amp;&amp; registrationCloseDate != null &amp;&amp; registrationOpenDate &gt; registrationCloseDate &amp;&amp; registrationCloseDate &gt; startDateT"/>
+        <error message="Enter proper 'Reg Open' and 'Reg Close' date." if="(registrationOpenDate != null &amp;&amp; registrationCloseDate != null &amp;&amp; registrationOpenDate &gt; registrationCloseDate ) ||
+        																(startDateT != null &amp;&amp; registrationOpenDate &gt; startDateT.toLocalDate()) || (startDateT != null &amp;&amp; registrationCloseDate &gt;= startDateT.toLocalDate()) "/>
     </action-validate>
 	
 	<action-method name="action-event-method-count-details">
