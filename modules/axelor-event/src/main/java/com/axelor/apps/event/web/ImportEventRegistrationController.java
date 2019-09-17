@@ -25,8 +25,9 @@ public class ImportEventRegistrationController {
       // a csv file is uploaded
       Integer eventId = (Integer) request.getContext().get("_id");
       impEventRegSer.importEventReg(eventId, dataFile);
+      response.setFlash("Event Registration imported");
     }
     System.out.println("welcome here");
-    response.setFlash("Event Registration imported");
+    
   }
 }

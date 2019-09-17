@@ -101,6 +101,7 @@
 	
 	<action-report name="action-event-report-generation" output="Event-Report" design="Event.rptdesign">
 		<param name="id" expr="eval:id" />
+		<param name="locale" expr="eval:com.axelor.app.AppSettings.get().get('application.locale')" />
 	</action-report>
 		
 </object-views>
