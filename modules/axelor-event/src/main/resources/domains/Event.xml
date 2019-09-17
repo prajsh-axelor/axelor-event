@@ -10,7 +10,7 @@
 			<datetime name="startDateT" title="Start Date"/> 
 			<datetime name="endDateT" title="End date" />
 			
-			<many-to-one name="address" ref="com.axelor.apps.event.db.Address" title="Address"/>
+			<many-to-one name="venue" ref="com.axelor.apps.event.db.Address" title="Venue"/>
 			
 			<date name="registrationOpenDate" title="Registration Open Date"/>
 			<date name="registrationCloseDate" title="Registration Close Date" />

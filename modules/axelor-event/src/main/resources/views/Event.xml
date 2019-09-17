@@ -7,7 +7,7 @@
 		<field name="reference" />
 		<field name="startDateT" />
 		<field name="endDateT" />
-		<field name="address" />
+		<field name="venue" />
 		<field name="capacity" />
 		<field name="eventFee" />
 		<field name="totalEntry" />
@@ -25,15 +25,15 @@
 			<field name="reference" />
 			<field name="startDateT" onChange="action-event-validate-check-event-start-end-dates"/>
 			<field name="endDateT" onChange="action-event-validate-check-event-start-end-dates"/>
-			<field name="address" />
+			<field name="venue" />
 			<field name="registrationOpenDate" onChange="action-event-validate-check-registration-start-end-dates"/>
 			<field name="registrationCloseDate" onChange="action-event-validate-check-registration-start-end-dates"/>
 			<field name="capacity" />
 			<field name="eventFee" />
 			<field name="description" widget="html" colSpan="12"/>
-			<field name="discountList" colSpan="12" />
-			<field name="eventRegistrationList" colSpan="12" onChange="action-event-method-count-details,action-event-validate-check-capacity"/>
 		</panel>
+		<panel-related field="discountList" colSpan="12"/>
+		<panel-related field="eventRegistrationList" colSpan="12" onChange="action-event-method-count-details,action-event-validate-check-capacity" />
 		<panel sidebar="true">
 			<field name="totalEntry" />
 			<field name="amountCollected" />
