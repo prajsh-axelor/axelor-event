@@ -34,14 +34,12 @@ public class EmailMessageController {
       List<EventRegistration> eventRegistrationsList = event.getEventRegistrationList();
       if (eventRegistrationsList != null) {
         // extract the email address to which email is to be send
-        for (int i = 0; i < eventRegistrationsList.size(); i++) {
-          if (eventRegistrationsList.get(i).getEmail() != null
-              && !eventRegistrationsList.get(i).getIsEmailSent()) {
+        for (EventRegistration eventReg : eventRegistrationsList) {
+          if (eventReg.getEmail() != null && !eventReg.getIsEmailSent()) {
             EmailAddress emailAdd = new EmailAddress();
-            emailAdd.setAddress(eventRegistrationsList.get(i).getEmail());
+            emailAdd.setAddress(eventReg.getEmail());
             emailAddressSet.add(emailAdd);
-
-            eventRegistrationsList.get(i).setIsEmailSent(true);
+            eventReg.setIsEmailSent(true);
           }
         }
       }
