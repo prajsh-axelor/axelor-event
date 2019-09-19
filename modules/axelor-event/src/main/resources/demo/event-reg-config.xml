@@ -3,8 +3,9 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/data-import http://axelor.com/xml/ns/data-import/data-import_5.0.xsd">
   
-  <input file="tempfile.csv" type="com.axelor.apps.event.db.EventRegistration" >
+  <input file="tempfile.csv" type="com.axelor.apps.event.db.EventRegistration" call="com.axelor.csv.script.ImportEventRegistration:checkCapacity">
   	<bind to="event" search="self.id = :_eventId" update="true" />
+<!--   	<bind to="registrationDateT"  /> -->
   </input>
   
 </csv-inputs>

@@ -29,7 +29,6 @@ public class DiscountController {
         //				 response.setValues(discount);
         response.setValue("beforeDays", null);
         response.setError("Invalid Before Day. Enter different value.");
-        response.setReload(true);
       }
     }
   }

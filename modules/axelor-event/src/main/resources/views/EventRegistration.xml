@@ -51,7 +51,7 @@
     
     <action-group name="action-event-registration-group-check-capacity-reg-date">
     	<!-- validate date of registration -->
-    	<action name="action-event-validate-capacity-reg-date"/>
+    	<action name="action-event-registration-validate-reg-date"/>
     	<!-- validate capacity -->
     	<action name="action-event-registration-validate-capacity"/>
     </action-group>
@@ -72,7 +72,7 @@
 		<error message="eval:com.axelor.i18n.I18n.get('Sorry!! this event is full.')" if="event.getTotalEntry() &gt;= event.getCapacity()"/>	
 	</action-validate>
 	
-	<action-validate name="action-event-validate-capacity-reg-date">
+	<action-validate name="action-event-registration-validate-reg-date">
         <error message="eval:com.axelor.i18n.I18n.get('Sorry!! registration for this event have been closed.')" if="registrationDateT.toLocalDate() &gt; event.getRegistrationCloseDate()" />
         <error message="eval:com.axelor.i18n.I18n.get('Sorry!! registration for this event is not yet started.')"  if="registrationDateT.toLocalDate() &lt; event.getRegistrationOpenDate()"/>
     </action-validate>

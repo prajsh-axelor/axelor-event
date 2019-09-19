@@ -27,7 +27,6 @@ public class ImportEventRegistrationController {
       impEventRegSer.importEventReg(eventId, dataFile);
       response.setFlash("Event Registration imported");
     }
-    System.out.println("welcome here");
-    
   }
+  
 }
