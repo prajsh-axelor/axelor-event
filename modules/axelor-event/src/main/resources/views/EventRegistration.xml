@@ -69,7 +69,7 @@
 	</action-method>
 	
 	<action-validate name="action-event-registration-validate-capacity">
-		<error message="eval:com.axelor.i18n.I18n.get('Sorry!! this event is full.')" if="event.getTotalEntry() &gt;= event.getCapacity()"/>	
+		<error message="eval:com.axelor.i18n.I18n.get('Sorry!! this event is full.')" if="id==null &amp;&amp; event.getTotalEntry() &gt;= event.getCapacity()"/>	
 	</action-validate>
 	
 	<action-validate name="action-event-registration-validate-reg-date">

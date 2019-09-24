@@ -7,7 +7,7 @@
 
 		<entity name="Discount">
 			<integer name="beforeDays" title="Before Days" />
-			<decimal name="discountPercent" title="Discount Percent" />
+			<decimal name="discountPercent" title="Discount Percent" min="0" max="100"/>
 			<decimal name="discountAmount" title="Discount Amount" />
 		</entity>
 </domain-models>
